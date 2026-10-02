@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreeBrowse</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #10131c;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 20px;
+  background: #191e2b;
+  border-bottom: 1px solid #303747;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+  color: #79aaff;
+}
+
+main {
+  max-width: 700px;
+  margin: 100px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 42px;
+}
+
+p {
+  color: #aab2c5;
+}
+
+.search {
+  display: flex;
+  gap: 8px;
+  padding: 7px;
+  background: #242a39;
+  border: 1px solid #414b60;
+  border-radius: 15px;
+  margin-top: 30px;
+}
+
+input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px;
+  background: transparent;
+  color: white;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #4d82e8;
+  color: white;
+  cursor: pointer;
+}
+
+.shortcuts {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 35px;
+}
+
+.shortcut {
+  width: 115px;
+  padding: 20px 10px;
+  background: #242a39;
+  border-radius: 13px;
+  color: white;
+  text-decoration: none;
+}
+
+.shortcut:hover {
+  background: #343d52;
+}
+
+.shortcut span {
+  display: block;
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+footer {
+  margin-top: 65px;
+  color: #7e899e;
+  font-size: 12px;
+}
+
+@media(max-width: 600px) {
+  main {
+    margin-top: 55px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🌐 FreeBrowse</div>
+</header>
+
+<main>
+  <h1>FreeBrowse</h1>
+  <p>Explore a internet em um só lugar.</p>
+
+  <form class="search" id="searchForm">
+    <input
+      id="address"
+      placeholder="Pesquisar ou digitar endereço..."
+      autocomplete="off"
+      required
+    >
+    <button type="submit">Ir →</button>
+  </form>
+
+  <div class="shortcuts">
+    <a class="shortcut" href="https://www.google.com">
+      <span>🔎</span>Google
+    </a>
+
+    <a class="shortcut" href="https://www.wikipedia.org">
+      <span>📚</span>Wikipedia
+    </a>
+
+    <a class="shortcut" href="https://www.youtube.com">
+      <span>▶️</span>YouTube
+    </a>
+
+    <a class="shortcut" href="https://www.duckduckgo.com">
+      <span>🦆</span>DuckDuckGo
+    </a>
+  </div>
+
+  <footer>
+    FreeBrowse Online • Versão 1.0
+  </footer>
+</main>
+
+<script>
+const form = document.getElementById("searchForm");
+const input = document.getElementById("address");
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const value = input.value.trim();
+
+  if (!value) return;
+
+  let destination;
+
+  if (/^https?:\/\//i.test(value)) {
+    destination = value;
+  } else if (/^[\w-]+(\.[\w-]+)+/.test(value)) {
+    destination = "https://" + value;
+  } else {
+    destination =
+      "https://www.google.com/search?q=" +
+      encodeURIComponent(value);
+  }
+
+  window.open(destination, "_blank", "noopener,noreferrer");
+});
+</script>
+
+</body>
+</html>
